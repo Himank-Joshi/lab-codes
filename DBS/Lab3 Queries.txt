@@ -1,0 +1,20 @@
+Queries ->
+
+**3)//insert into PARTICIPATED values('KA20 2015478', 'KA22 S6325', 12, 3000);
+
+  UPDATE PARTICIPATED
+ SET DAMAGE_AMOUNT = 25000
+ WHERE (REPORT_NUMBER = 12 AND REGNO = 'KA22 S6325');
+
+4)DELETE from participated
+ WHERE report_number = (SELECT report_number FROM accident WHERE extract(year from accd_date) = '2018');
+    delete from accident where extract(year from accd_date) = '2018';
+
+5) ALTER TABLE PERSON
+   ADD (nickname varchar(10));
+
+   ALTER TABLE PERSON
+   DROP COLUMN nickname;
+
+6)ALTER TABLE PARTICIPATED
+ ADD CHECK ( damage_amount >0);

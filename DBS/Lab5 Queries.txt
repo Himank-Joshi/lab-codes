@@ -1,0 +1,58 @@
+STUDENT (regno: varchar(20), name: varchar(50), major: varchar(20),
+bdate:date)
+COURSE (course#:int, cname: varchar(30), dept: varchar(30))
+ENROLL (regno: varchar(20), course#:int)
+BOOK_ADOPTION (course#:int, sem:int, book_isbn:int)
+TEXT (book_isbn:int, booktitle: varchar(50), publisher: varchar(50), author:
+varchar(50))
+
+
+3)
+
+a) select course#
+ from book_adoption
+ group by course#
+ having book_isbn > 1;
+
+***b)select distinct(dept)
+ from course natural join book_adoption
+ where book_isbn in (select book_isbn
+                    from text
+                    where publisher = 'XYZ publishers');
+
+c)select distinct(regno)
+ from course natural join enroll
+ group by regno
+ having count(distinct dept)>1;
+
+d)select regno
+ from student
+ where regno not in (select distinct regno
+                      from enroll);
+e)select distinct(book_isbn)
+ from BOOK_ADOPTION natural join enroll;
+
+f)SELECT DISTINCT C.course#
+FROM COURSE C
+WHERE (
+    SELECT COUNT(DISTINCT BA.book_isbn)
+    FROM BOOK_ADOPTION BA
+    NATURAL JOIN TEXT T
+    WHERE BA.course# = C.course#
+      AND T.publisher = 'XYZ publishers'
+) >= 2;
+
+g)select regno
+ from enroll natural join book_adoption
+ group by enroll.regno
+ having count(book_isbn) >= all (select count(book_isbn) 
+                                 from enroll natural join book_adoption
+                                  group by enroll.regno);
+h)select publisher, count(book_isbn) Count
+ from text
+ group by publisher;
+
+ i)
+
+j)
+
